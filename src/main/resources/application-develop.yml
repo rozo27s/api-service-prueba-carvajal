@@ -1,0 +1,19 @@
+server.port: 8080
+server.servlet.contextPath: /service-api-rest/api
+
+spring:
+  jpa:
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+    hibernate.ddl-auto: create-drop
+  datasource: 
+    db-ebusiness: 
+      driver-class-name: org.postgresql.Driver
+      hikari: 
+        maximumPoolSize: 10
+        minimumIdle: 5
+        poolName: ebusiness-jdbc-pool
+      jdbc-url: "jdbc:postgresql://localhost:5432/postgres"
+      jmx-enabled: true
+      password: admin
+      username: postgres
