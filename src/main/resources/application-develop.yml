@@ -17,3 +17,12 @@ spring:
       jmx-enabled: true
       password: admin
       username: postgres
+
+spring.mail.host: smtp.gmail.com
+spring.mail.port: 587
+spring.mail.username: aljarrome@gmail.com
+spring.mail.password: "cbvadqhtxqykmevh"
+spring.mail.properties.mail.smtp.auth: true
+spring.mail.properties.mail.smtp.starttls.enable: true
+
+config.jwt.secretkey: "asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4"

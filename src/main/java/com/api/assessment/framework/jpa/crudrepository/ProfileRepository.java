@@ -11,8 +11,9 @@ import com.api.assessment.framework.jpa.entity.Profile;
  *
  */
 @Repository
-public interface CardRepository extends JpaRepository<Profile, Long> {
+public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
-  Profile findByProfileId(Long pan);
+  Profile findByEmailAndPassword(String email, String password);
+  Profile findByEmail(String email);
 
 }
