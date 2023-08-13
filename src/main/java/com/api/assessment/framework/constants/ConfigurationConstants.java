@@ -16,15 +16,9 @@ public class ConfigurationConstants {
     public static final String REQUEST_PROFILE= "profile";
     public static final String REQUEST_LOGIN= "login";
     public static final String REQUEST_PUBLICATION= "publication";
+    public static final String REQUEST_REACTION= "reaction";
+    public static final String REQUEST_COMMENT = "comment";
     public static final String RESPONSE_STATUS = "responseStatus";
-    public static final String REQUEST_CREATE_CARD = "create-card";
-    public static final String REQUEST_ENROLL_CARD = "enroll-card";
-    public static final String REQUEST_FIND_CARD = "find-card";
-    public static final String REQUEST_FIND_TRANSACTION = "find-transaction";
-    public static final String REQUEST_DELETE_CARD = "delete-card";
-    public static final String REQUEST_TRANSACTIONS = "transactions";
-    public static final String REQUEST_CREATE_TRANSACTION = "create-transaction";
-    public static final String REQUEST_CANCEL_TRANSACTION = "cancel-transaction";
     public static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd";
     public static final String SIMPLE_DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm:ss";
     public static final String REGEX_EMAIL = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";

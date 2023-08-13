@@ -33,7 +33,7 @@ public class PublicationDTOToPublication implements Translator<PublicationDTO, P
         .publicationId(input.getPublicationId())
         .profile(profileDTOToProfile.to(input.getProfile()))
         .detailPublication(input.getDetailPublication())
-        .active(input.isActive())
+        .active(true)
         .build();
   }
 }

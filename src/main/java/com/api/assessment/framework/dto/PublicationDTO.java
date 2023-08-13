@@ -27,7 +27,6 @@ public class PublicationDTO implements Serializable {
     private String detailPublication;
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime creationDate;
-    private boolean active;
 
     private static final long serialVersionUID = 8094153480314794704L;
 

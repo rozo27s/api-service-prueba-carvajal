@@ -43,7 +43,6 @@ public class PublicationToPublicationDTO implements Translator<Publication, Publ
         .publicationId(input.getPublicationId())
         .reactions(reactions)
         .detailPublication(input.getDetailPublication())
-        .active(input.isActive())
         .build();
   }
 }

@@ -4,11 +4,13 @@ package com.api.assessment.module.publication.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.api.assessment.framework.dto.PublicationDTO;
+import com.api.assessment.framework.exception.BadRequestException;
 import com.api.assessment.framework.jpa.crudrepository.PublicationRepository;
 import com.api.assessment.framework.jpa.entity.Publication;
 import com.api.assessment.framework.pattern.Translator;
@@ -43,18 +45,31 @@ public class PublicationServiceImpl implements PublicationService {
 
   @Override
   public PublicationDTO createPublication(PublicationDTO publicationDTO) {
-    publicationDTO.setCreationDate(LocalDateTime.now());
-    return publicationToPublicationDTO.to(publicationRepository.save(publicationDTOToPublication.to(publicationDTO)));
+    Publication publication = publicationDTOToPublication.to(publicationDTO);
+    publication.setCreationDate(LocalDateTime.now());
+    return publicationToPublicationDTO.to(publicationRepository.save(publication));
   }
 
   @Override
   public PublicationDTO updatePublication(PublicationDTO publicationDTO) {
-    return null;
+    Optional<Publication> publicationOp = publicationRepository.findById(publicationDTO.getPublicationId());
+    if (publicationOp.isEmpty()) {
+      throw new BadRequestException("Piblication is not found");
+    }
+    Publication publication = publicationOp.get();
+    publication.setDetailPublication(publicationDTO.getDetailPublication());
+    return publicationToPublicationDTO.to(publicationRepository.save(publication));
   }
 
   @Override
-  public PublicationDTO deletePublication(PublicationDTO publicationDTO) {
-    return null;
+  public void deletePublication(Long idPubication) {
+    Optional<Publication> publicationOp = publicationRepository.findById(idPubication);
+    if (publicationOp.isEmpty()) {
+      throw new BadRequestException("Piblication is not found");
+    }
+    Publication publication = publicationOp.get();
+    publication.setActive(false);
+    publicationToPublicationDTO.to(publicationRepository.save(publication));
   }
 
 

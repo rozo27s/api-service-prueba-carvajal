@@ -29,5 +29,15 @@ public class PublicationController {
     log.info("createPublications");
     return publicationService.createPublication(publicationDTO);    
   }
+  
+  public PublicationDTO updatePublications(PublicationDTO publicationDTO) {
+    log.info("updatePublications");
+    return publicationService.updatePublication(publicationDTO);    
+  }
+  
+  public void deletePublications(Long publicationId) {
+    log.info("deletePublications");
+     publicationService.deletePublication(publicationId);    
+  }
 
 }

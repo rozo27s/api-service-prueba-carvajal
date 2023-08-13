@@ -17,6 +17,6 @@ public interface PublicationService {
   public List<PublicationDTO> findPublicationsByProfile(Long idprofile);
   public PublicationDTO createPublication(PublicationDTO publicationDTO);
   public PublicationDTO updatePublication(PublicationDTO publicationDTO);
-  public PublicationDTO deletePublication(PublicationDTO publicationDTO);
+  public void deletePublication(Long idPubication);
  
 }
