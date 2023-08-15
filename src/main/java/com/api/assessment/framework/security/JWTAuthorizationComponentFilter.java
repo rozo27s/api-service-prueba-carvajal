@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.api.assessment.framework.constants.ConfigurationConstants;
@@ -30,8 +29,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 
-@Component
-public class JWTAuthorizationFilter extends OncePerRequestFilter {
+public class JWTAuthorizationComponentFilter extends OncePerRequestFilter {
 
   @Value(ConfigurationConstants.SECRET_KEY)
   private String secretKey;

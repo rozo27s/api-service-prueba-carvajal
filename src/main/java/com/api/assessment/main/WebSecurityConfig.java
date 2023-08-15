@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.api.assessment.framework.security.JWTAuthorizationFilter;
+import com.api.assessment.framework.security.JWTAuthorizationComponentFilter;
 
 /**
  * @author ajrozo
@@ -19,7 +19,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
-      .addFilterAfter(new JWTAuthorizationFilter(),
+      .addFilterAfter(new JWTAuthorizationComponentFilter(),
                       UsernamePasswordAuthenticationFilter.class)
       .authorizeRequests()
       .antMatchers(HttpMethod.GET, "/login/token").permitAll()
