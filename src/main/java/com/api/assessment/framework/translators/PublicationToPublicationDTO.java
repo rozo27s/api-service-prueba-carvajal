@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import com.api.assessment.framework.dto.ProfileDTO;
 import com.api.assessment.framework.dto.PublicationDTO;
 import com.api.assessment.framework.dto.ReactionDTO;
+import com.api.assessment.framework.jpa.entity.Profile;
 import com.api.assessment.framework.jpa.entity.Publication;
 import com.api.assessment.framework.jpa.entity.Reaction;
 import com.api.assessment.framework.pattern.Translator;
@@ -26,6 +28,9 @@ public class PublicationToPublicationDTO implements Translator<Publication, Publ
   @Qualifier("reactionToReactionDTO")
   private final Translator<Reaction, ReactionDTO> reactionDTOToReaction;
   
+  @Qualifier("profileToProfileDTO")
+  private final Translator<Profile, ProfileDTO> profileToProfileDTO;
+  
   @Override
   public PublicationDTO to(Publication input) {
     
@@ -42,7 +47,9 @@ public class PublicationToPublicationDTO implements Translator<Publication, Publ
     return PublicationDTO.builder()
         .publicationId(input.getPublicationId())
         .reactions(reactions)
+        .profile(profileToProfileDTO.to(input.getProfile()))
         .detailPublication(input.getDetailPublication())
+        .creationDate(input.getCreationDate())
         .build();
   }
 }

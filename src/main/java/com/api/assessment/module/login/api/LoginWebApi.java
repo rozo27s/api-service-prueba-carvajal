@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,12 +48,12 @@ public class LoginWebApi {
       nickname = "",
       notes = "",
       response = ResponseEntity.class)
-  @PutMapping("/update-pass")
-  public ResponseEntity<Object> updatePassword(
+  @PostMapping("/remember-pass")
+  public ResponseEntity<Object> rememberPass(
       @Valid final @RequestBody UpdatePassword updatePassword,
       final BindingResult result) {
     ValidUtil.validateBindingResult(result);
-    loginController.updatePasswordProfile(updatePassword);
+    loginController.rememberPass(updatePassword);
     return ResponseEntity.ok(null);
   }
   

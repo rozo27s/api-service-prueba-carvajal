@@ -26,13 +26,6 @@ public class UpdatePassword implements Serializable {
     @NotBlank
     @Pattern(regexp = ConfigurationConstants.REGEX_EMAIL, message = "No es un correo")
     private String email;
-    @NotNull
-    @NotBlank
-    @Pattern(regexp = ConfigurationConstants.REGEX_PASS, message = "Debe contener Mayusculas, minusculas y numeros")
-    private String password;
-    @NotNull
-    @NotBlank
-    private String token;
 
     private static final long serialVersionUID = 8094153480314794704L;
 

@@ -22,7 +22,6 @@ import com.api.assessment.framework.dto.Login;
 import com.api.assessment.framework.dto.ProfileDTO;
 import com.api.assessment.framework.dto.UpdatePassword;
 import com.api.assessment.framework.exception.BadRequestException;
-import com.api.assessment.framework.security.JWTAuthorizationFilter;
 import com.api.assessment.module.profile.controller.ProfileController;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -42,7 +41,6 @@ import lombok.extern.log4j.Log4j2;
 public class LoginController {
   
   private final ProfileController profileController;
-  private final JWTAuthorizationFilter jwtAuthorizationFilter;
   
   @Value(ConfigurationConstants.SECRET_KEY)
   private String secretKey;
@@ -51,15 +49,14 @@ public class LoginController {
     log.info("Autentication for {}", profile.getEmail());
     ProfileDTO profileDTO = profileController.getLogin(profile);
     if (profileDTO != null) {
-      profileDTO.setToken(getJWTToken(profile.getEmail(), 5L));
+      profileDTO.setToken(getJWTToken(profile.getEmail(), 60L));
     }
     return profileDTO;
   }
 
-  public void updatePasswordProfile(UpdatePassword updatePassword) {
+  public void rememberPass(UpdatePassword updatePassword) {
     try {
-      jwtAuthorizationFilter.validateToken(updatePassword.getToken());
-      profileController.updatePass(updatePassword);
+      profileController.rememberPass(updatePassword);
     } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
       throw new BadRequestException(e.getMessage());
     }

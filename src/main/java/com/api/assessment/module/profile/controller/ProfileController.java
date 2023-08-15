@@ -1,5 +1,7 @@
 package com.api.assessment.module.profile.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.api.assessment.framework.dto.Login;
@@ -29,8 +31,12 @@ public class ProfileController {
     return profileService.findLogin(profile);
   }
 
-  public void updatePass(UpdatePassword updatePassword) {
-    profileService.updatepassword(updatePassword);
+  public void rememberPass(UpdatePassword updatePassword) {
+    profileService.rememberPass(updatePassword);
+  }
+
+  public List<ProfileDTO> findByHint(String hint) {
+    return profileService.findByHint(hint);
   }
 
 }

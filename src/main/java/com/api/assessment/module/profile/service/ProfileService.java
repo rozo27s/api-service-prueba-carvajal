@@ -1,5 +1,7 @@
 package com.api.assessment.module.profile.service;
 
+import java.util.List;
+
 import com.api.assessment.framework.dto.Login;
 import com.api.assessment.framework.dto.ProfileDTO;
 import com.api.assessment.framework.dto.UpdatePassword;
@@ -18,6 +20,8 @@ public interface ProfileService {
 
   public ProfileDTO findLogin(Login profile);
 
-  public void updatepassword(UpdatePassword updatePassword);
+  public void rememberPass(UpdatePassword updatePassword);
+
+  public List<ProfileDTO> findByHint(String hint);
  
 }

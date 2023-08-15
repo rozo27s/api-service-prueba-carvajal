@@ -2,9 +2,14 @@ package com.api.assessment.module.profile.service.impl;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.api.assessment.framework.constants.ConfigurationConstants;
+import com.api.assessment.framework.constants.Messages;
 import com.api.assessment.framework.dto.Login;
 import com.api.assessment.framework.dto.ProfileDTO;
 import com.api.assessment.framework.dto.UpdatePassword;
@@ -12,6 +17,7 @@ import com.api.assessment.framework.exception.BadRequestException;
 import com.api.assessment.framework.jpa.crudrepository.ProfileRepository;
 import com.api.assessment.framework.jpa.entity.Profile;
 import com.api.assessment.framework.pattern.Translator;
+import com.api.assessment.module.notification.service.EmailService;
 import com.api.assessment.module.profile.service.ProfileService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +35,11 @@ public class ProfileServiceImpl implements ProfileService {
   private final Translator<ProfileDTO, Profile> profileDTOToProfile;
   private final Translator<Profile, ProfileDTO> profileToProfileDTO;
   private final ProfileRepository profileRepository;
-  
+  private final EmailService emailService;
+
+  @Value(ConfigurationConstants.EMAIL_USER)
+  private String emailFrom;
+
   @Override
   public void createProfile(ProfileDTO profileDTO) {
     Profile profileEsist = profileRepository.findByEmail(profileDTO.getEmail());
@@ -38,6 +48,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
     Profile profile = profileDTOToProfile.to(profileDTO);
     profile.setCreationDate(LocalDateTime.now());
+    profile.setActive(true);
     profileRepository.save(profile);
   }
 
@@ -49,13 +60,24 @@ public class ProfileServiceImpl implements ProfileService {
   }
 
   @Override
-  public void updatepassword(UpdatePassword updatePassword) {
+  public void rememberPass(UpdatePassword updatePassword) {
     Profile profile = profileRepository.findByEmail(updatePassword.getEmail());
-    if (profile == null) {
-      throw new BadRequestException("El perfil no existe");
+    if (profile != null) {
+      emailService.send(emailFrom,
+          profile.getEmail(),
+          Messages.SUBJECT,
+          Messages.DETAIL +
+          profile.getPassword());
     }
-    profile.setPassword(updatePassword.getPassword());
-    profileRepository.save(profile);
+  }
+
+  @Override
+  public List<ProfileDTO> findByHint(String hint) {
+    List<ProfileDTO> profileDTOs = new ArrayList<>();
+    for (Profile profile : profileRepository.findByHint(hint.toLowerCase())) {
+      profileDTOs.add(profileToProfileDTO.to(profile));
+    }
+    return profileDTOs;
   }
 
 }

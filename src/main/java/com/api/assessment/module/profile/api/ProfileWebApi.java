@@ -6,9 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.assessment.framework.constants.ConfigurationConstants;
@@ -41,5 +43,14 @@ public class ProfileWebApi {
     ValidUtil.validateBindingResult(result);
     profileService.createProfile(profileDTO);
     return ResponseEntity.ok(null);
+  }
+  
+  @ApiOperation(value = "",
+      nickname = "",
+      notes = "",
+      response = ResponseEntity.class)
+  @GetMapping(name = "")
+  public ResponseEntity<Object> findByHint(final @RequestParam String hint) {
+    return ResponseEntity.ok(profileService.findByHint(hint));
   }
 }

@@ -37,6 +37,7 @@ public class ProfileDTO implements Serializable {
     private String email;
     @NotNull
     @NotBlank
+    @Pattern(regexp = ConfigurationConstants.REGEX_PASS, message = "Pasword inseguro")
     private String password;
     private String token;
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")

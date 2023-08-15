@@ -19,7 +19,8 @@ import com.api.assessment.framework.jpa.entity.Publication;
 public interface PublicationRepository extends JpaRepository<Publication, Long> {
   
   @Transactional(readOnly = true, isolation = Isolation.READ_UNCOMMITTED)
-  @Query("SELECT p FROM Publication p JOIN p.profile pf WHERE pf.profileId = ?1 AND p.active = true")
+  @Query("SELECT p FROM Publication p JOIN p.profile pf "
+       + "WHERE pf.profileId = ?1 AND p.active = true ORDER BY p.publicationId DESC")
   List<Publication> findPublicationsByProfilrId(Long idProfile);
 
 }

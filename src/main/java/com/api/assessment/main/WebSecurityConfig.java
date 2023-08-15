@@ -26,13 +26,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(HttpMethod.PUT, "/login/update-pass").permitAll()
       .antMatchers(HttpMethod.POST, "/login").permitAll()
       .antMatchers(HttpMethod.POST, "/profile").permitAll()
+      .antMatchers(HttpMethod.POST, "/login/remember-pass").permitAll()
 
-      .antMatchers(HttpMethod.GET, "/publication").permitAll()
-      .antMatchers(HttpMethod.POST, "/publication").permitAll()
-      .antMatchers(HttpMethod.POST, "/reaction").permitAll()
-      .antMatchers(HttpMethod.POST, "/comment").permitAll()
-      .antMatchers(HttpMethod.PUT, "/publication").permitAll()
-      .antMatchers(HttpMethod.DELETE, "/publication/{id}").permitAll()
+//      .antMatchers(HttpMethod.GET, "/publication").permitAll()
+//      .antMatchers(HttpMethod.POST, "/publication").permitAll()
+//      .antMatchers(HttpMethod.POST, "/reaction").permitAll()
+//      .antMatchers(HttpMethod.POST, "/comment").permitAll()
+//      .antMatchers(HttpMethod.PUT, "/publication").permitAll()
+//      .antMatchers(HttpMethod.DELETE, "/publication/{id}").permitAll()
       .anyRequest()
       .authenticated();
   }
