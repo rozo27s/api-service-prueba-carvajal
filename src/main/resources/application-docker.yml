@@ -5,7 +5,7 @@ spring:
   jpa:
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
-    hibernate.ddl-auto: "create-drop"
+    hibernate.ddl-auto: "update"
   datasource: 
     db-ebusiness: 
       driver-class-name: "org.postgresql.Driver"
