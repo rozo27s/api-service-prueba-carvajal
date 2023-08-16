@@ -22,8 +22,9 @@ repositories {
 }
 
 dependencies {
-	implementation SPRING, LOG4J2
-	runtimeOnly POSTGRES, JWT
+	implementation SPRING, LOG4J2, EMAIL, SWAGGER, JWT
+	testImplementation EMAILTEST
+	runtimeOnly POSTGRES
 	annotationProcessor LOMBOK
 	testImplementation SPRINGUT
 }

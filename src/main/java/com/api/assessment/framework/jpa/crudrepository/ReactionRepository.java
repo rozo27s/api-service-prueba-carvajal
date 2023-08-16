@@ -3,7 +3,7 @@ package com.api.assessment.framework.jpa.crudrepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.api.assessment.framework.jpa.entity.Profile;
+import com.api.assessment.framework.jpa.entity.Reaction;
 
 /**
  * 
@@ -11,8 +11,6 @@ import com.api.assessment.framework.jpa.entity.Profile;
  *
  */
 @Repository
-public interface CardRepository extends JpaRepository<Profile, Long> {
-
-  Profile findByProfileId(Long pan);
+public interface ReactionRepository extends JpaRepository<Reaction, Long> {
 
 }

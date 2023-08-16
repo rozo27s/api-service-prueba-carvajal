@@ -1,4 +1,4 @@
-package com.api.assessment.module.profile.api;
+package com.api.assessment.module.login.api;
 
 import javax.validation.Valid;
 
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.assessment.framework.constants.ConfigurationConstants;
-import com.api.assessment.framework.dto.ProfileDTO;
+import com.api.assessment.framework.dto.Login;
+import com.api.assessment.framework.dto.UpdatePassword;
 import com.api.assessment.framework.util.ValidUtil;
-import com.api.assessment.module.profile.controller.ProfileController;
+import com.api.assessment.module.login.controller.LoginController;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -26,22 +26,34 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping(
-        value = ConfigurationConstants.REQUEST_PROFILE,
+        value = ConfigurationConstants.REQUEST_LOGIN,
         produces = { MediaType.APPLICATION_JSON_VALUE })
-public class ProfileWebApi {
+public class LoginWebApi {
 
-  private final ProfileController profileService;
+  private final LoginController loginController;
 
   @ApiOperation(value = "",
                 nickname = "",
                 notes = "",
                 response = ResponseEntity.class)
-  @PostMapping(name = "")
-  public ResponseEntity<Object> createProfile(
-      @Valid final @RequestBody ProfileDTO profileDTO,
+  @PostMapping()
+  public ResponseEntity<Object> login(
+      @Valid final @RequestBody Login login,
       final BindingResult result) {
     ValidUtil.validateBindingResult(result);
-    profileService.createProfile(profileDTO);
+    return ResponseEntity.ok(loginController.loginProfile(login));
+  }
+
+  @ApiOperation(value = "",
+      nickname = "",
+      notes = "",
+      response = ResponseEntity.class)
+  @PostMapping("/remember-pass")
+  public ResponseEntity<Object> rememberPass(
+      @Valid final @RequestBody UpdatePassword updatePassword,
+      final BindingResult result) {
+    ValidUtil.validateBindingResult(result);
+    loginController.rememberPass(updatePassword);
     return ResponseEntity.ok(null);
   }
   
@@ -49,8 +61,8 @@ public class ProfileWebApi {
       nickname = "",
       notes = "",
       response = ResponseEntity.class)
-  @GetMapping(name = "")
-  public ResponseEntity<Object> findByHint(final @RequestParam String hint) {
-    return ResponseEntity.ok(profileService.findByHint(hint));
+  @GetMapping("/token")
+  public ResponseEntity<Object> generatetoken() {
+    return ResponseEntity.ok(loginController.token());
   }
 }

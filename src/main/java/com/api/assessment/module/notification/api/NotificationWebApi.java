@@ -1,22 +1,21 @@
-package com.api.assessment.module.profile.api;
+package com.api.assessment.module.notification.api;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.assessment.framework.constants.ConfigurationConstants;
-import com.api.assessment.framework.dto.ProfileDTO;
+import com.api.assessment.framework.dto.Notification;
 import com.api.assessment.framework.util.ValidUtil;
-import com.api.assessment.module.profile.controller.ProfileController;
+import com.api.assessment.module.notification.service.EmailService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,32 +24,25 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @CrossOrigin("*")
 @RequiredArgsConstructor
-@RequestMapping(
-        value = ConfigurationConstants.REQUEST_PROFILE,
-        produces = { MediaType.APPLICATION_JSON_VALUE })
-public class ProfileWebApi {
-
-  private final ProfileController profileService;
+@RequestMapping(value = ConfigurationConstants.REQUEST_NOTIFICATION,
+                produces = { MediaType.APPLICATION_JSON_VALUE })
+public class NotificationWebApi {
+  
+  private final EmailService emailService;
 
   @ApiOperation(value = "",
                 nickname = "",
                 notes = "",
                 response = ResponseEntity.class)
   @PostMapping(name = "")
-  public ResponseEntity<Object> createProfile(
-      @Valid final @RequestBody ProfileDTO profileDTO,
+  public ResponseEntity<Object> createCard(
+      @Valid final @RequestBody Notification notification,
       final BindingResult result) {
     ValidUtil.validateBindingResult(result);
-    profileService.createProfile(profileDTO);
-    return ResponseEntity.ok(null);
-  }
-  
-  @ApiOperation(value = "",
-      nickname = "",
-      notes = "",
-      response = ResponseEntity.class)
-  @GetMapping(name = "")
-  public ResponseEntity<Object> findByHint(final @RequestParam String hint) {
-    return ResponseEntity.ok(profileService.findByHint(hint));
+    emailService.send(notification.getFrom(),
+                      notification.getTo(),
+                      notification.getSubject(),
+                      notification.getDetail());
+    return ResponseEntity.status(HttpStatus.CREATED).body("");
   }
 }

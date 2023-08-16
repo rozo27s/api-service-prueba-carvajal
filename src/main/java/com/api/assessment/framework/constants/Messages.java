@@ -18,5 +18,7 @@ public class Messages {
     public static final String PAN = "pan";
     public static final String STATUS_TRANSACTION = "estadoTransaccion";
     public static final String REFERENCE = "referencia";
+    public static final String SUBJECT = "Remember password your account livebook";
+    public static final String DETAIL = "Your password: ";
 
 }
